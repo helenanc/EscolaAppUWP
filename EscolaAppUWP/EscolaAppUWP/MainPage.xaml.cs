@@ -29,10 +29,12 @@ namespace EscolaAppUWP
         {
             this.InitializeComponent();
             escolasList = new List<Models.Escola>();
+            medias = new List<double>();
         }
 
-        private string ip = "http://localhost:53097";
+        private string ip = "http://localhost:57495";
         private List<Models.Escola> escolasList;
+        private List<double> medias;
 
         private async void btnInserir_Click(object sender, RoutedEventArgs e)
         {
@@ -52,7 +54,7 @@ namespace EscolaAppUWP
 
             string s = "=" + JsonConvert.SerializeObject(escolasList);
             var content = new StringContent(s, Encoding.UTF8, "application/x-www-form-urlencoded");
-            await httpClient.PostAsync("/api/Escola/", content);
+            await httpClient.PostAsync("/api/escola/", content);
         }
 
         private void btnListarEscola_Click(object sender, RoutedEventArgs e)
@@ -82,15 +84,21 @@ namespace EscolaAppUWP
 
         private void btnListarMedia_Click(object sender, RoutedEventArgs e)
         {
-            lvListar.ItemsSource = null;
-            //double media = escolasList
-            foreach (Models.Escola z in (escolasList.OrderBy(x => x.UF).ToList()))
+            /*lvListar.ItemsSource = null;
+            List<double> newList = medias.OrderByDescending(x => x).ToList();
+            for (int i = 0; i <= medias.Count; i++)
             {
-                lvListar.Items.Add("Nome: " + z.Nome +
-                    " UF: " + z.UF + " Natureza: " + z.CienciasNatureza +
-                    " Humanas: " + z.CienciasHumanas + " Linguagens: " + z.LinguagensCodigos +
-                    " Matemática: " + z.Matematica + " Redação: " + z.Redacao);
-            }
+                if(medias[i] == newList[i])
+                {
+                    for(int x = 0; x <= medias.Count; x++)
+                    {
+                        lvListar.Items.Add("Nome: " + escolasList[x].Nome + " Média: " + newList[i] +
+                   " UF: " + escolasList[x].UF + " Natureza: " + escolasList[x].CienciasNatureza +
+                   " Humanas: " + escolasList[x].CienciasHumanas + " Linguagens: " + escolasList[x].LinguagensCodigos +
+                   " Matemática: " + escolasList[x].Matematica + " Redação: " + escolasList[x].Redacao);
+                    }
+                }
+            }*/
         }
 
         private void btnListarArea_Click(object sender, RoutedEventArgs e)
@@ -102,6 +110,16 @@ namespace EscolaAppUWP
                     " UF: " + z.UF + " Natureza: " + z.CienciasNatureza +
                     " Humanas: " + z.CienciasHumanas + " Linguagens: " + z.LinguagensCodigos +
                     " Matemática: " + z.Matematica + " Redação: " + z.Redacao);
+            }
+        }
+
+        private void CalcularMedia()
+        {
+            for(int i = 0; i <= escolasList.Count; i++)
+            {
+                medias.Add((escolasList[i].LinguagensCodigos + escolasList[i].Matematica +
+                    escolasList[i].Redacao + escolasList[i].CienciasHumanas +
+                    escolasList[i].CienciasNatureza) / 5);
             }
         }
 
@@ -132,49 +150,17 @@ namespace EscolaAppUWP
             }
         }
 
-        /* HTTP */
+        private async void btnDeletar_Click(object sender, RoutedEventArgs e)
+        {
+            Models.Escola obj = (Models.Escola)lvEscolasDel.SelectedItem;
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(ip);
+            await httpClient.DeleteAsync("/api/escola/" + obj.Id.ToString());
+        }
 
-        /* private async void btnDispServ_Click(object sender, RoutedEventArgs e)
-         {
-             //faz contato com o servidor
-             HttpClient httpClient = new HttpClient();
-             httpClient.BaseAddress = new Uri(ip);
+        private void btnEditar_Click(object sender, RoutedEventArgs e)
+        {
 
-             //entra no servidor e pega uma lista de compromissos
-             var response = await httpClient.GetAsync("/api/agenda/");
-             var str = response.Content.ReadAsStringAsync().Result;
-             List<Models.Compromisso> obj = JsonConvert.DeserializeObject<List<Models.Compromisso>>(str);
-
-             //deleta todos os compromissos do servidor de acordo com a lista obtida
-             foreach (Models.Compromisso c in obj)
-                 await httpClient.DeleteAsync("/api/agenda/" + c.Id.ToString());
-
-             //pega a lista do dispositivo, serializa e insere no servidor
-             string s = "=" + JsonConvert.SerializeObject(compromissos);
-             var content = new StringContent(s, Encoding.UTF8, "application/x-www-form-urlencoded");
-             await httpClient.PostAsync("/api/agenda/", content);
-
-             MessageBox.Show("Atualizado (D-S)!");
-         }
-
-         private async void btnServDisp_Click(object sender, RoutedEventArgs e)
-         {
-             // Acessa os dados do serviço para recuperar a lista de compromissos
-             HttpClient httpClient = new HttpClient();
-             httpClient.BaseAddress = new Uri(ip);
-             var response = await httpClient.GetAsync("/api/agenda/");
-             var str = response.Content.ReadAsStringAsync().Result;
-
-             // Converte o json do serviço para uma lista
-             List<Models.Compromisso> obj = JsonConvert.DeserializeObject<List<Models.Compromisso>>(str);
-
-             // Apaga os dados locais
-             compromissos.RemoveRange(0, compromissos.Count);
-
-             // Grava a lista de compromissos no dispositivo;
-             compromissos = obj;
-
-             MessageBox.Show("Atualizado (S-D)!");
-         }*/
+        }
     }
-}
+    }
