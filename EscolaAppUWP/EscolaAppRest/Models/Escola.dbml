@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="EscolaAppDB" Class="EscolaDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=DESKTOP-E4LUID3\HELENA;Initial Catalog=EscolaAppDB;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="EscolaAppDBConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Escola" Member="Escolas">
+    <Type Name="Escola">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Nome" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="UF" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CienciasNatureza" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CienciasHumanas" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="LinguagensCodigos" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Matematica" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Redacao" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>
