@@ -9,17 +9,57 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Pivot Title="EscolaAppUWP">
-            <PivotItem Header="INSERIR/EXCLUIR">
-                <Grid/>
+            <PivotItem Header="INSERIR">
+                <Grid>
+                    <TextBox x:Name="txtNome" HorizontalAlignment="Left" Margin="13,16,0,0" TextWrapping="Wrap" Text="Nome" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtUF" HorizontalAlignment="Left" Margin="82,16,0,0" TextWrapping="Wrap" Text="UF" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtNaturezas" HorizontalAlignment="Left" Margin="151,16,0,0" TextWrapping="Wrap" Text="Naturezas" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtHumanas" HorizontalAlignment="Left" Margin="243,16,0,0" TextWrapping="Wrap" Text="Humanas" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtLinguagens" HorizontalAlignment="Left" Margin="13,53,0,0" TextWrapping="Wrap" Text="Linguagens" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtMat" HorizontalAlignment="Left" Margin="127,53,0,0" TextWrapping="Wrap" Text="Matematica" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtRedacao" HorizontalAlignment="Left" Margin="249,53,0,0" TextWrapping="Wrap" Text="Redação" VerticalAlignment="Top"/>
+                    <Button x:Name="btnInserir" Content="Inserir" HorizontalAlignment="Left" Margin="13,90,0,0" VerticalAlignment="Top" Click="btnInserir_Click" Width="313"/>
+                </Grid>
             </PivotItem>
             <PivotItem Header="LISTAR">
-                <Grid/>
+                <Grid>
+                    <Button x:Name="btnListarEscola" Content="Por Escola" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="106" Click="btnListarEscola_Click"/>
+                    <Button x:Name="btnListarUF" Content="Por UF" HorizontalAlignment="Left" Margin="121,10,0,0" VerticalAlignment="Top" Width="106" Click="btnListarUF_Click"/>
+                    <Button x:Name="btnListarArea" Content="Por Área" HorizontalAlignment="Left" Margin="135,47,0,0" VerticalAlignment="Top" Width="106" Click="btnListarArea_Click"/>
+                    <Button x:Name="btnListarMedia" Content="Por Média" HorizontalAlignment="Left" Margin="232,10,0,0" VerticalAlignment="Top" Width="94" Click="btnListarMedia_Click"/>
+                    <ListView x:Name="lvListar" HorizontalAlignment="Left" Height="451" Margin="10,84,0,0" VerticalAlignment="Top" Width="316">
+                    </ListView>
+                    <ComboBox x:Name="cbArea" HorizontalAlignment="Left" Margin="10,47,0,0" VerticalAlignment="Top" Width="120">
+                        <ComboBoxItem Content="Humanas"/>
+                        <ComboBoxItem Content="Naturezas"/>
+                        <ComboBoxItem Content="Linguagens"/>
+                        <ComboBoxItem Content="Matemática"/>
+                        <ComboBoxItem Content="Redação"/>
+                    </ComboBox>
+                    <Button x:Name="ListarTodas" Content="Todas" HorizontalAlignment="Left" Margin="246,47,0,0" VerticalAlignment="Top" Width="80" Click="ListarTodas_Click"/>
+
+                </Grid>
             </PivotItem>
             <PivotItem Header="EDITAR">
-            <Grid/>
+                <Grid>
+                    <TextBox x:Name="txtIdEdit" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Id" VerticalAlignment="Top" Width="88"/>
+                    <TextBox x:Name="txtNomeEdit" HorizontalAlignment="Left" Margin="103,10,0,0" TextWrapping="Wrap" Text="Nome" VerticalAlignment="Top" Width="130"/>
+                    <Button x:Name="btnEditar" Content="Editar" HorizontalAlignment="Left" Margin="171,121,0,0" VerticalAlignment="Top" Width="155" Click="btnEditar_Click"/>
+                    <TextBox x:Name="txtUFEdit" HorizontalAlignment="Left" Margin="238,10,0,0" TextWrapping="Wrap" Text="UF" VerticalAlignment="Top" Width="88"/>
+                    <TextBox x:Name="txtNCNEdit" HorizontalAlignment="Left" Margin="10,47,0,0" TextWrapping="Wrap" Text="Nota Naturezas" VerticalAlignment="Top" Width="156"/>
+                    <TextBox x:Name="txtNCHEdit" HorizontalAlignment="Left" Margin="170,47,0,0" TextWrapping="Wrap" Text="Nota Humanas" VerticalAlignment="Top" Width="156"/>
+                    <TextBox x:Name="txtNLCEdit" HorizontalAlignment="Left" Margin="10,84,0,0" TextWrapping="Wrap" Text="Nota Linguagens" VerticalAlignment="Top" Width="156"/>
+                    <TextBox x:Name="txtNMatEdit" HorizontalAlignment="Left" Margin="170,84,0,0" TextWrapping="Wrap" Text="Nota Matemática" VerticalAlignment="Top" Width="156"/>
+                    <TextBox x:Name="txtNRedEdit" HorizontalAlignment="Left" Margin="10,121,0,0" TextWrapping="Wrap" Text="Nota Redação" VerticalAlignment="Top" Width="156"/>
+                </Grid>
             </PivotItem>
             <PivotItem Header="SERVIDOR">
-                <Grid/>
+                <Grid>
+                    <Button x:Name="btnAServidor" Content="Servidor" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="93" Click="btnAServidor_Click"/>
+                    <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="108,6,0,0" TextWrapping="Wrap" Text="Envia os dados do dispositivo para o servidor." VerticalAlignment="Top" Width="218" Height="40" TextAlignment="Center"/>
+                    <Button x:Name="btnADispositivo" Content="Dispositivo" HorizontalAlignment="Left" Margin="10,78,0,0" VerticalAlignment="Top" Click="btnADispositivo_Click"/>
+                    <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="108,78,0,0" TextWrapping="Wrap" Text="Envia os dados do servidor para o dispositivo." VerticalAlignment="Top" Width="218" TextAlignment="Center"/>
+                </Grid>
             </PivotItem>
         </Pivot>
 
