@@ -72,7 +72,7 @@ namespace EscolaAppUWP
 
         private void btnListarUF_Click(object sender, RoutedEventArgs e)
         {
-            lvListar.ItemsSource = null;
+            lvEscolasDel.Items.Clear();
             foreach (Models.Escola z in (escolasList.OrderBy(x => x.UF).ToList()))
             {
                 lvListar.Items.Add("Nome: " + z.Nome +
@@ -103,7 +103,7 @@ namespace EscolaAppUWP
 
         private void btnListarArea_Click(object sender, RoutedEventArgs e)
         {
-            lvListar.ItemsSource = null;
+            lvEscolasDel.Items.Clear();
             foreach (Models.Escola z in ListaPorArea())
             {
                 lvListar.Items.Add("Nome: " + z.Nome +
@@ -140,7 +140,7 @@ namespace EscolaAppUWP
 
         private void ListarTodas_Click(object sender, RoutedEventArgs e)
         {
-            lvListar.ItemsSource = null;
+            lvEscolasDel.Items.Clear();
             foreach (Models.Escola z in escolasList)
             {
                 lvListar.Items.Add("Nome: " + z.Nome +
@@ -158,9 +158,35 @@ namespace EscolaAppUWP
             await httpClient.DeleteAsync("/api/escola/" + obj.Id.ToString());
         }
 
-        private void btnEditar_Click(object sender, RoutedEventArgs e)
+        private async void btnEditar_Click(object sender, RoutedEventArgs e)
         {
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(ip);
+            Models.Escola esc = new Models.Escola
+            {
+                Nome = txtNomeEdit.Text,
+                UF = txtUFEdit.Text,
+                CienciasNatureza = Convert.ToDouble(txtNatEdit.Text),
+                CienciasHumanas = Convert.ToDouble(txtHumEdit.Text),
+                LinguagensCodigos = Convert.ToDouble(txtLingEdit.Text),
+                Matematica = Convert.ToDouble(txtMatEdit.Text),
+                Redacao = Convert.ToDouble(txtRedEdit.Text),
+            };
+            string s = "=" + JsonConvert.SerializeObject(esc);
+            var content = new StringContent(s, Encoding.UTF8, "application/x-www-form-urlencoded");
+            await httpClient.PutAsync("/api/escola/" + f.Id, content);
+        }
 
+        private void btnListarDel_Click(object sender, RoutedEventArgs e)
+        {
+            lvEscolasDel.Items.Clear();
+            foreach (Models.Escola z in escolasList)
+            {
+                lvEscolasDel.Items.Add("Nome: " + z.Nome +
+                    " UF: " + z.UF + " Natureza: " + z.CienciasNatureza +
+                    " Humanas: " + z.CienciasHumanas + " Linguagens: " + z.LinguagensCodigos +
+                    " Matemática: " + z.Matematica + " Redação: " + z.Redacao);
+            }
         }
     }
     }
